@@ -43,5 +43,5 @@ def gen_keys():
 
 #Example usage:
 key_pair = gen_keys()
-print(f"\n\nprivate key {key_pair["private_key"]}\n\n")
-print(f"\n\npublic key {key_pair["public_key"]}\n\n")
+print(f"\n\nprivate key\n {key_pair["private_key"]}\n\n")
+print(f"\n\npublic key \n{key_pair["public_key"]}\n\n")
