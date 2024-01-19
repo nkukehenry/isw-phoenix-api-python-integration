@@ -73,10 +73,6 @@ class CryptoUtils:
             signature = private_key.sign(
                 data_bytes,
                 padding.PKCS1v15(),
-                # padding.PSS(
-                #     mgf=padding.MGF1(hashes.SHA256()),
-                #     salt_length=padding.PSS.MAX_LENGTH
-                # ),
                 hashes.SHA256()
             )
 
@@ -102,10 +98,6 @@ class CryptoUtils:
                 signature_bytes,
                 data.encode('utf-8'),
                 padding.PKCS1v15(),
-                # padding.PSS(
-                #     mgf=padding.MGF1(hashes.SHA256()),
-                #     salt_length=padding.PSS.MAX_LENGTH
-                # ),
                 hashes.SHA256()
             )
             return True  # Signature is valid
@@ -114,10 +106,6 @@ class CryptoUtils:
             return False  # Signature is invalid
     @staticmethod
     def get_curve_key_pair():
-        # from cryptography.hazmat.primitives.asymmetric import ec
-        # from cryptography.hazmat.primitives import serialization
-        # import base64
-
         # Generate a SECP256R1 private key
         private_key = ec.generate_private_key(ec.SECP256R1())
 
@@ -195,10 +183,6 @@ class CryptoUtils:
         ciphertext = encryptor.update(padded_data) + encryptor.finalize()
 
         combined_buffer = iv + ciphertext
-
-        # combined_buffer = [iv, encrypted]
-        # final_encr = b"".join(combined_buffer)
-
         return base64.b64encode(combined_buffer).decode('utf-8')
 
     @staticmethod
@@ -230,8 +214,5 @@ class CryptoUtils:
         ciphertext = encryptor.update(padded_data) + encryptor.finalize()
 
         combined_buffer = iv + ciphertext
-
-        # combined_buffer = [iv, encrypted]
-        # final_encr = b"".join(combined_buffer)
 
         return base64.b64encode(combined_buffer).decode('utf-8')
