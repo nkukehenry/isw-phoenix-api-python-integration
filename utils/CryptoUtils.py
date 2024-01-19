@@ -17,10 +17,7 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends.openssl import backend
 from utils.key_util import private_key as privateKeyObj
 from utils import Constants
-
-
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
-
 from utils.UtilMethods import SystemApiException
 from dto.PhoenixResponseCodes import PhoenixResponseCodes
 
@@ -65,7 +62,6 @@ class CryptoUtils:
             raise SystemApiException(
                 PhoenixResponseCodes.INTERNAL_ERROR.CODE, "Failure to encryptWithPrivate ")
 
-    # works for Client Registration
     @staticmethod
     def sign_with_private(data, private_key):
             private_key = privateKeyObj
@@ -104,6 +100,7 @@ class CryptoUtils:
         except Exception as e:
             print(f"Signature is invalid: {e}")
             return False  # Signature is invalid
+
     @staticmethod
     def get_curve_key_pair():
         # Generate a SECP256R1 private key
@@ -139,10 +136,6 @@ class CryptoUtils:
     def make_shared_key(curve_private_key,decrypted_session_key,private_c_key):
         new_curve_private = curve_private_key.encode('UTF-8')
         new_curve_public  = decrypted_session_key
-            
-        #start
-        print(f"length of private: " + str(len(decrypted_session_key)))
-        print(f"length of public: " + str(len(new_curve_public)))
         
         init = ec.derive_private_key(
             int.from_bytes(new_curve_private, byteorder='big'),
@@ -198,7 +191,6 @@ class CryptoUtils:
 
         # Convert plaintext to bytes
         plaintext_bytes =  base64_encoded_hash.encode('utf-8')
-        #bytes.fromhex(hashed_password_hex)
 
         # Pad the plaintext using PKCS7
         padder = sympadding.PKCS7(128).padder()
