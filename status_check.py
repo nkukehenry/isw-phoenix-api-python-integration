@@ -8,11 +8,11 @@ import uuid
 import key_exchange
 
 
-endpointUrl = Constants.ROOT_LINK + "sente/status"
 
-if __name__ == '__main__':
+def check_tran_status(request_ref):
 
-    endpointUrl = endpointUrl + "?terminalId=" + Constants.TERMINAL_ID + "&requestReference=" + str(uuid.uuid4())
+    baseUrl     = Constants.ROOT_LINK + "sente/status"
+    endpointUrl = baseUrl + "?terminalId=" + Constants.TERMINAL_ID + "&requestReference=" + request_ref
 
     print(f" Status Check Request to:: {endpointUrl}")
 
@@ -35,4 +35,8 @@ if __name__ == '__main__':
     payment_response = UtilMethods.unmarshall_system_response_object(response)
     
     print(f"\ Status Check Unmarshalled Response:: {payment_response}")
+
+
+#Trigger status check, provider tran request ref as arg
+check_tran_status("988998398398398")
 
