@@ -134,7 +134,7 @@ class CryptoUtils:
 
     @staticmethod
     def make_shared_key(curve_private_key,decrypted_session_key,private_c_key):
-        new_curve_private = curve_private_key.encode('UTF-8')
+        new_curve_private = base64.b64decode(curve_private_key)
         new_curve_public  = decrypted_session_key
         
         init = ec.derive_private_key(
